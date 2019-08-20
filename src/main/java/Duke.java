@@ -19,22 +19,31 @@ public class Duke {
         System.out.println("\tWhat can I do for you?");
         printLine();
         Scanner scanner = new Scanner(System.in);
-        ArrayList<String> list = new ArrayList<>();
-        String input = scanner.nextLine();
+        ArrayList<Task> list = new ArrayList<>();
+        String input = scanner.next();
+
         while (!input.equals("bye")) {
-            if (!input.equals("list")) {
-                list.add(input);
+            if (input.equals("done")) {
+                printLine();
+                int index = scanner.nextInt();
+                list.get(index-1).setStatus();
+                printLine();
+            } else if (input.equals("list")) {
+                printLine();
+                for (int i = 1; i <= list.size(); i++) {
+                    System.out.print("\t" + i + ".");
+                    System.out.println("[" + list.get(i-1).getStatusIcon() + "] " + list.get(i-1).description);
+                }
+                printLine();
+            } else {
+                input = input + scanner.nextLine();
+                Task t = new Task(input);
+                list.add(t);
                 printLine();
                 System.out.println("\tadded: " + input);
                 printLine();
-            } else {
-                printLine();
-                for (int i = 1; i <= list.size(); i++) {
-                    System.out.println("\t" + i + ". " + list.get(i-1));
-                }
-                printLine();
             }
-            input = scanner.nextLine();
+            input = scanner.next();
         }
         printLine();
         System.out.println("\tBye. Hope to see you again soon!");
