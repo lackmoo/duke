@@ -6,6 +6,12 @@ public class Duke {
         String line = "\t____________________________________________________";
         System.out.println(line);
     }
+
+    /**
+     * Main class.
+     *
+     * @param args empty
+     */
     public static void main(String[] args) {
         String logo = " \t____        _        \n"
                 + "\t|  _ \\ _   _| | _____ \n"
@@ -26,13 +32,13 @@ public class Duke {
             if (input.equals("done")) {
                 printLine();
                 int index = scanner.nextInt();
-                list.get(index-1).setStatus();
+                list.get(index - 1).setStatus();
                 printLine();
             } else if (input.equals("list")) {
                 printLine();
                 for (int i = 1; i <= list.size(); i++) {
                     System.out.print("\t" + i + ".");
-                    System.out.println("[" + list.get(i-1).getStatusIcon() + "] " + list.get(i-1).description);
+                    System.out.println("[" + list.get(i - 1).getStatusIcon() + "] " + list.get(i - 1).description);
                 }
                 printLine();
             } else {
