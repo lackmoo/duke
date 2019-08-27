@@ -2,9 +2,19 @@ import java.util.Scanner;
 import java.util.ArrayList;
 
 public class Duke {
+    private static ArrayList<Task> list = new ArrayList<>();
+
     public static void printLine() {
         String line = "\t____________________________________________________";
         System.out.println(line);
+    }
+
+    public static void printAddedMessage(Task t) {
+        list.add(t);
+        System.out.println("\t Got it. I've added this task:");
+        System.out.println("\t   " + t);
+        System.out.println(String.format("\t Now you have %d tasks in your list.", list.size()));
+        printLine();
     }
 
     /**
@@ -25,30 +35,39 @@ public class Duke {
         System.out.println("\tWhat can I do for you?");
         printLine();
         Scanner scanner = new Scanner(System.in);
-        ArrayList<Task> list = new ArrayList<>();
         String input = scanner.next();
-
+        String[] tokenizer;
+        String userTask;
         while (!input.equals("bye")) {
-            if (input.equals("done")) {
-                printLine();
-                int index = scanner.nextInt();
-                list.get(index - 1).setStatus();
-                printLine();
-            } else if (input.equals("list")) {
-                printLine();
-                System.out.println("\tHere are the tasks in your list:");
-                for (int i = 1; i <= list.size(); i++) {
-                    System.out.print("\t" + i + ".");
-                    System.out.println("[" + list.get(i - 1).getStatusIcon() + "] " + list.get(i - 1).description);
-                }
-                printLine();
-            } else {
-                input = input + scanner.nextLine();
-                Task t = new Task(input);
-                list.add(t);
-                printLine();
-                System.out.println("\tadded: " + input);
-                printLine();
+            printLine();
+            switch (input) {
+                case "done":
+                    int index = scanner.nextInt();
+                    list.get(index - 1).setStatus();
+                    printLine();
+                    break;
+                case "list":
+                    System.out.println("\t Here are the tasks in your list:");
+                    for (int i = 1; i <= list.size(); i++) {
+                        System.out.print("\t " + i + ".");
+                        System.out.println(list.get(i - 1).toString());
+                    }
+                    printLine();
+                    break;
+                case "todo":
+                    userTask = scanner.nextLine().trim();
+                    printAddedMessage(new Todo(userTask));
+                    break;
+                case "deadline":
+                    userTask = scanner.nextLine().trim();
+                    tokenizer = userTask.split(" /by ");
+                    printAddedMessage(new Deadline(tokenizer[0], tokenizer[1]));
+                    break;
+                case "event":
+                    userTask = scanner.nextLine().trim();
+                    tokenizer = userTask.split(" /at ");
+                    printAddedMessage(new Event(tokenizer[0], tokenizer[1]));
+                    break;
             }
             input = scanner.next();
         }

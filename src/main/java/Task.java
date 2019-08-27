@@ -13,12 +13,21 @@ public class Task {
     }
 
     public void printStatus() {
-        System.out.println("\tNice! I've marked this task as done:");
-        System.out.println("\t[" + this.getStatusIcon() + "] " + this.description);
+        System.out.println("\t Nice! I've marked this task as done:");
+        System.out.println("\t [" + this.getStatusIcon() + "] " + this.description);
     }
 
     public void setStatus() {
         this.isDone = true;
         printStatus();
+    }
+
+    @Override
+    public String toString() {
+        String status = "\u2718";
+        if (isDone) {
+            status = "\u2713";
+        }
+        return "[" + status + "] " + this.description;
     }
 }
