@@ -38,36 +38,72 @@ public class Duke {
         String input = scanner.next();
         String[] tokenizer;
         String userTask;
+        String sadFace = "\u2639";
+        // Error messages for empty task description
+        String taskEmpty1 = "\t " + sadFace + "  OOPS!!! The description of a ";
+        String taskEmpty2 = " cannot be empty.";
+        // Error messages for no deadline/event input
+        String deadlineEmpty1 = "\t " + sadFace + "  OOPS!!! The ";
+        String deadlineEmpty2 = " time details must be provided.";
         while (!input.equals("bye")) {
             printLine();
-            switch (input) {
-                case "done":
-                    int index = scanner.nextInt();
-                    list.get(index - 1).setStatus();
-                    printLine();
-                    break;
-                case "list":
-                    System.out.println("\t Here are the tasks in your list:");
-                    for (int i = 1; i <= list.size(); i++) {
-                        System.out.print("\t " + i + ".");
-                        System.out.println(list.get(i - 1).toString());
-                    }
-                    printLine();
-                    break;
-                case "todo":
-                    userTask = scanner.nextLine().trim();
-                    printAddedMessage(new Todo(userTask));
-                    break;
-                case "deadline":
-                    userTask = scanner.nextLine().trim();
-                    tokenizer = userTask.split(" /by ");
-                    printAddedMessage(new Deadline(tokenizer[0], tokenizer[1]));
-                    break;
-                case "event":
-                    userTask = scanner.nextLine().trim();
-                    tokenizer = userTask.split(" /at ");
-                    printAddedMessage(new Event(tokenizer[0], tokenizer[1]));
-                    break;
+            try {
+                switch (input) {
+                    case "done":
+                        int index = scanner.nextInt();
+                        if (index > list.size() || index <= 0) {
+                            throw new DukeException("\t " + sadFace + "  OOPS!!! The task is non-existent, please input a valid task number.");
+                        }
+                        list.get(index - 1).setStatus();
+                        printLine();
+                        break;
+                    case "list":
+                        System.out.println("\t Here are the tasks in your list:");
+                        if (list.size() == 0) {
+                            throw new DukeException("\t " + sadFace + "  OOPS!!! The task list is currently empty.");
+                        }
+                        for (int i = 1; i <= list.size(); i++) {
+                            System.out.print("\t " + i + ".");
+                            System.out.println(list.get(i - 1).toString());
+                        }
+                        printLine();
+                        break;
+                    case "todo":
+                        userTask = scanner.nextLine().trim();
+                        if (userTask.length() == 0) {
+                            throw new DukeException(taskEmpty1 + input + taskEmpty2);
+                        }
+                        printAddedMessage(new Todo(userTask));
+                        break;
+                    case "deadline":
+                        userTask = scanner.nextLine().trim();
+                        if (userTask.length() == 0) {
+                            throw new DukeException(taskEmpty1 + input + taskEmpty2);
+                        }
+                        tokenizer = userTask.split(" /by ");
+                        if (tokenizer.length < 2) {
+                            throw new DukeException(deadlineEmpty1 + input + deadlineEmpty2);
+                        }
+                        printAddedMessage(new Deadline(tokenizer[0], tokenizer[1]));
+                        break;
+                    case "event":
+                        userTask = scanner.nextLine().trim();
+                        if (userTask.length() == 0) {
+                            throw new DukeException(taskEmpty1 + input + taskEmpty2);
+                        }
+                        tokenizer = userTask.split(" /at ");
+                        if (tokenizer.length < 2) {
+                            throw new DukeException(deadlineEmpty1 + input + deadlineEmpty2);
+                        }
+                        printAddedMessage(new Event(tokenizer[0], tokenizer[1]));
+                        break;
+                    default:
+                        input = scanner.nextLine();
+                        throw new DukeException("\t " + sadFace + "  OOPS!!! I'm sorry, but I don't know what that means :-(");
+                }
+            } catch (DukeException e) {
+                System.out.println(e.getMessage());
+                printLine();
             }
             input = scanner.next();
         }
