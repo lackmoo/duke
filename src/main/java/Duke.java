@@ -1,5 +1,12 @@
+import java.io.File;
 import java.util.Scanner;
 import java.util.ArrayList;
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.IOException;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.FileNotFoundException;
 
 public class Duke {
     private static ArrayList<Task> list = new ArrayList<>();
@@ -17,12 +24,90 @@ public class Duke {
         printLine();
     }
 
+    public static File retrieveFile(String file) {
+        //String fileLocationPath = System.getProperty("user.dir") + "/data";
+        //File fileLocation = new File(fileLocationPath);
+        File fileLocation = new File(System.getProperty("user.dir") + "/data");
+        boolean fileExistence = fileLocation.exists();
+        if (!fileExistence) {
+            fileLocation.mkdir();
+        }
+        File dataFile = new File(fileLocation, file);
+        try {
+            dataFile.createNewFile();
+        } catch (IOException e) {
+            System.out.println(e.getMessage());
+        }
+        return dataFile;
+    }
+
+    public static Task readFile(String userText) {
+        String[] details = userText.split("\\|");
+        Task addTask = null;
+        switch (details[0]) {
+            case "T":
+                addTask = new Todo(details[2].trim());
+                break;
+            case "D":
+                addTask = new Deadline(details[2].trim(), details[3].trim());
+                break;
+            case "E":
+                addTask = new Event(details[2].trim(), details[3].trim());
+                break;
+        }
+        if (details[1].equals("1")) {
+            addTask.setDone();
+        }
+        System.out.println(addTask.fileFormat());
+        /*try {
+            System.out.println(addTask.fileFormat());
+        } catch (NullPointerException e) {
+            System.out.println(e);
+        }*/
+        return addTask;
+    }
+
+    public static void loadFile(String file) {
+        File toBeLoaded = retrieveFile(file);
+        try {
+            String userInput;
+            BufferedReader scanData = new BufferedReader(new FileReader(toBeLoaded));
+            try {
+                while ((userInput = scanData.readLine()) != null) {
+                    list.add(readFile(userInput));
+                }
+                scanData.close();
+            } catch (IOException e) {
+                System.out.println(e.getMessage());
+            }
+        } catch (FileNotFoundException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    public static void editFile(String file) {
+        File dataFile = retrieveFile(file);
+        try {
+            BufferedWriter editData = new BufferedWriter(new FileWriter(dataFile));
+            for (Task scanning : list) {
+                editData.write(scanning.fileFormat());
+                editData.newLine();
+            }
+            editData.flush();
+            editData.close();
+        } catch (IOException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
     /**
      * Main class.
      *
      * @param args empty
      */
     public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        loadFile("duke.txt");
         String logo = " \t____        _        \n"
                 + "\t|  _ \\ _   _| | _____ \n"
                 + "\t| | | | | | | |/ / _ \\\n"
@@ -34,12 +119,12 @@ public class Duke {
         System.out.println("\tHello! I'm Duke");
         System.out.println("\tWhat can I do for you?");
         printLine();
-        Scanner scanner = new Scanner(System.in);
+
         String input = scanner.next();
         String[] tokenizer;
         String userTask;
-        String sadFace = "\u2639";
         // Error messages for empty task description
+        String sadFace = "\u2639";
         String taskEmpty1 = "\t " + sadFace + "  OOPS!!! The description of a ";
         String taskEmpty2 = " cannot be empty.";
         // Error messages for no deadline/event input
@@ -51,9 +136,6 @@ public class Duke {
                 switch (input) {
                     case "done":
                         int index = scanner.nextInt();
-                        if (index > list.size() || index <= 0) {
-                            throw new DukeException("\t " + sadFace + "  OOPS!!! The task is non-existent, please input a valid task number.");
-                        }
                         list.get(index - 1).setStatus();
                         printLine();
                         break;
@@ -104,7 +186,10 @@ public class Duke {
             } catch (DukeException e) {
                 System.out.println(e.getMessage());
                 printLine();
+            } catch (IndexOutOfBoundsException e) {
+                System.out.println("\t " + sadFace + "  OOPS!!! The task is non-existent, please input a valid task number.");
             }
+            editFile("duke.txt");
             input = scanner.next();
         }
         printLine();

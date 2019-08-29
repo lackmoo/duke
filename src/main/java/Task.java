@@ -22,6 +22,18 @@ public class Task {
         printStatus();
     }
 
+    public void setDone() {
+        this.isDone = true;
+    }
+
+    public String fileFormat() {
+        String status = "0";
+        if (isDone) {
+            status = "1";
+        }
+        return status + " | " + this.description;
+    }
+
     @Override
     public String toString() {
         String status = "\u2718";
