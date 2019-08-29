@@ -41,7 +41,7 @@ public class Duke {
         return dataFile;
     }
 
-    public static Task readFile(String userText) {
+    public static Task readFile(String userText) throws DukeException {
         String[] details = userText.split("\\|");
         Task addTask = null;
         switch (details[0]) {
@@ -77,7 +77,7 @@ public class Duke {
                     list.add(readFile(userInput));
                 }
                 scanData.close();
-            } catch (IOException e) {
+            } catch (IOException | DukeException e) {
                 System.out.println(e.getMessage());
             }
         } catch (FileNotFoundException e) {
@@ -88,7 +88,8 @@ public class Duke {
     public static void editFile(String file) {
         File dataFile = retrieveFile(file);
         try {
-            BufferedWriter editData = new BufferedWriter(new FileWriter(dataFile));
+            //BufferedWriter editData = new BufferedWriter(new FileWriter(dataFile));
+            BufferedWriter editData = new BufferedWriter(new FileWriter("duke.txt"));
             for (Task scanning : list) {
                 editData.write(scanning.fileFormat());
                 editData.newLine();

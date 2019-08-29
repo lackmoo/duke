@@ -1,18 +1,21 @@
-public class Deadline extends Task {
-    protected String by;
+import java.util.Date;
 
-    public Deadline(String description, String by) {
+public class Deadline extends Task {
+    protected DatesTimes by;
+
+    public Deadline(String description, String dateTime) throws DukeException {
         super(description);
-        this.by = by;
+        by = new DatesTimes(dateTime);
     }
 
     @Override
     public String fileFormat() {
-        return "D | " + super.fileFormat() + " | " + this.by;
+        return "D | " + super.fileFormat() + " | " + this.by.toString();
     }
 
     @Override
     public String toString() {
-        return "[D]" + super.toString() + " (by: " + this.by + ")";
+        return "[D]" + super.toString() + " (by: " + this.by.toString() + ")";
     }
 }
+
