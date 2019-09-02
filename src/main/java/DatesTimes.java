@@ -1,3 +1,6 @@
+import java.util.List;
+import java.util.Arrays;
+
 public class DatesTimes {
     private int day;
     private int month;
@@ -7,40 +10,34 @@ public class DatesTimes {
     private int min;
 
     public DatesTimes (String dateTime) throws DukeException {
+        String[] initialSplit = dateTime.split(" ");
+        List<String> splitDateTime = Arrays.asList(initialSplit);
         try {
-            String[] splitDateTime;
-            splitDateTime = dateTime.split(" ");
-            String Date = splitDateTime[0];
-            String Time = splitDateTime[1];
+            String date = splitDateTime.get(0);
+            String time = splitDateTime.get(1);
 
-            String[] splitDate;
-            splitDate = Date.split("/");
-            this.day = Integer.parseInt(splitDate[0]);
-            this.month = Integer.parseInt(splitDate[1]);
-            this.year = Integer.parseInt(splitDate[2]);
+            String[] dateSplit = date.split("/");
+            List<String> dateSection = Arrays.asList(dateSplit);
+            this.day = Integer.parseInt(dateSection.get(0));
+            this.month = Integer.parseInt(dateSection.get(1));
+            this.year = Integer.parseInt(dateSection.get(2));
 
-            int finalTime = Integer.parseInt(Time);
-            int finalHour = finalTime / 100;
-            int[] finalMin = new int[2];
-            finalMin[0] = finalTime % 10;
-            finalTime /= 10;
-            finalMin[1] = finalTime % 10;
-            int finalFinalMin = (finalMin[1] * 10) + finalMin[0];
-            this.hour = finalHour;
-            this.min = finalFinalMin;
+            String[] timeSplit = time.split(":");
+            List<String> timeSection = Arrays.asList(timeSplit);
+            this.hour = Integer.parseInt(timeSection.get(0));
+            this.min = Integer.parseInt(timeSection.get(1));
 
             if (this.day < 0 || this.day > 31 || this.month < 0 || this.month > 12
                     || this.year < 0 || this.hour < 0 || this.hour > 24 || this.min < 0 || this.min > 59) {
-                throw new DukeException("\t \u2639  OOPS!!! The datetime format is invalid, please provide a valid input.");
+                throw new DukeException("\t \u2639  OOPS!!! The datetime values provided are invalid. Please insert valid datetime values.");
             }
-        } catch (DukeException e) {
-            System.out.println(e.getMessage());
+        } catch (IndexOutOfBoundsException | NumberFormatException e) {
+            throw new DukeException("\t \u2639  OOPS!!! The datetime format is invalid. Deadline datetime format is: dd/mm/yy hh:mm and Event datetime format is: dd/mm/yy hh:mm - dd/mm/yy hh:mm.");
         }
     }
 
     @Override
     public String toString() {
-        return String.format("%02d/%02d/%04d %02d:%02d",
-                this.day, this.month, this.year, this.hour, this.min);
+        return String.format("%02d/%02d/%04d %02d:%02d", this.day, this.month, this.year, this.hour, this.min);
     }
 }
