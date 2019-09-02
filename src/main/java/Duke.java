@@ -18,6 +18,14 @@ public class Duke {
         printLine();
     }
 
+    public static void printRemovedMessage(int index) {
+        Task removedTask = list.remove(index);
+        System.out.println("\t Got it. I've removed this task:");
+        System.out.println("\t   " + removedTask);
+        System.out.println(String.format("\t Now you have %d tasks in your list.", list.size()));
+        printLine();
+    }
+
     /**
      * Main class.
      *
@@ -53,8 +61,8 @@ public class Duke {
             try {
                 switch (input) {
                     case "done":
-                        int index = scanner.nextInt();
-                        list.get(index - 1).setStatus();
+                        int addIndex = scanner.nextInt();
+                        list.get(addIndex - 1).setStatus();
                         printLine();
                         break;
                     case "list":
@@ -96,6 +104,13 @@ public class Duke {
                             throw new DukeException(deadlineEmpty1 + input + deadlineEmpty2);
                         }
                         printAddedMessage(new Event(tokenizer[0], tokenizer[1]));
+                        break;
+                    case "delete":
+                        int removedIndex = scanner.nextInt() - 1;
+                        printRemovedMessage(removedIndex);
+                        if (removedIndex > list.size()) {
+                            throw new DukeException("\t " + sadFace + "  OOPS!!! The task is non-existent, please input a valid task number.");
+                        }
                         break;
                     default:
                         throw new DukeException("\t " + sadFace + "  OOPS!!! I'm sorry, but I don't know what that means :-(");
