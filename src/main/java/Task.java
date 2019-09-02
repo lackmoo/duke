@@ -31,7 +31,7 @@ public class Task {
         if (isDone) {
             status = "1";
         }
-        return status + " | " + this.description;
+        return status + "|" + this.description;
     }
 
     @Override

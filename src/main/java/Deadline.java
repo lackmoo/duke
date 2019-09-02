@@ -1,5 +1,3 @@
-import java.util.Date;
-
 public class Deadline extends Task {
     protected DatesTimes by;
 
@@ -10,7 +8,7 @@ public class Deadline extends Task {
 
     @Override
     public String fileFormat() {
-        return "D | " + super.fileFormat() + " | " + this.by.toString();
+        return "D|" + super.fileFormat() + "|" + this.by.toString();
     }
 
     @Override

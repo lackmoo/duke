@@ -8,7 +8,7 @@ public class Event extends Task {
 
     @Override
     public String fileFormat() {
-        return "E | " + super.fileFormat() + " | " + this.dateTime;
+        return "E|" + super.fileFormat() + "|" + this.dateTime;
     }
 
     @Override

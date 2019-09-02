@@ -1,0 +1,4 @@
+T|1|read book
+T|1|join sports club
+E|0|sports club briefing|Monday 2-4pm
+D|0|return book|19/08/0019 18:00

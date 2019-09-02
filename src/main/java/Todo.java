@@ -5,7 +5,7 @@ public class Todo extends Task {
 
     @Override
     public String fileFormat() {
-        return "T | " + super.fileFormat();
+        return "T|" + super.fileFormat();
     }
 
     @Override

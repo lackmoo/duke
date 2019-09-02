@@ -1,15 +1,9 @@
-import java.io.File;
 import java.util.Scanner;
 import java.util.ArrayList;
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.IOException;
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.FileNotFoundException;
 
 public class Duke {
     private static ArrayList<Task> list = new ArrayList<>();
+    private static Storage database = new Storage("duke.txt");
 
     public static void printLine() {
         String line = "\t____________________________________________________";
@@ -24,83 +18,6 @@ public class Duke {
         printLine();
     }
 
-    public static File retrieveFile(String file) {
-        //String fileLocationPath = System.getProperty("user.dir") + "/data";
-        //File fileLocation = new File(fileLocationPath);
-        File fileLocation = new File(System.getProperty("user.dir") + "/data");
-        boolean fileExistence = fileLocation.exists();
-        if (!fileExistence) {
-            fileLocation.mkdir();
-        }
-        File dataFile = new File(fileLocation, file);
-        try {
-            dataFile.createNewFile();
-        } catch (IOException e) {
-            System.out.println(e.getMessage());
-        }
-        return dataFile;
-    }
-
-    public static Task readFile(String userText) throws DukeException {
-        String[] details = userText.split("\\|");
-        Task addTask = null;
-        switch (details[0]) {
-            case "T":
-                addTask = new Todo(details[2].trim());
-                break;
-            case "D":
-                addTask = new Deadline(details[2].trim(), details[3].trim());
-                break;
-            case "E":
-                addTask = new Event(details[2].trim(), details[3].trim());
-                break;
-        }
-        if (details[1].equals("1")) {
-            addTask.setDone();
-        }
-        System.out.println(addTask.fileFormat());
-        /*try {
-            System.out.println(addTask.fileFormat());
-        } catch (NullPointerException e) {
-            System.out.println(e);
-        }*/
-        return addTask;
-    }
-
-    public static void loadFile(String file) {
-        File toBeLoaded = retrieveFile(file);
-        try {
-            String userInput;
-            BufferedReader scanData = new BufferedReader(new FileReader(toBeLoaded));
-            try {
-                while ((userInput = scanData.readLine()) != null) {
-                    list.add(readFile(userInput));
-                }
-                scanData.close();
-            } catch (IOException | DukeException e) {
-                System.out.println(e.getMessage());
-            }
-        } catch (FileNotFoundException e) {
-            System.out.println(e.getMessage());
-        }
-    }
-
-    public static void editFile(String file) {
-        File dataFile = retrieveFile(file);
-        try {
-            //BufferedWriter editData = new BufferedWriter(new FileWriter(dataFile));
-            BufferedWriter editData = new BufferedWriter(new FileWriter("duke.txt"));
-            for (Task scanning : list) {
-                editData.write(scanning.fileFormat());
-                editData.newLine();
-            }
-            editData.flush();
-            editData.close();
-        } catch (IOException e) {
-            System.out.println(e.getMessage());
-        }
-    }
-
     /**
      * Main class.
      *
@@ -108,7 +25,7 @@ public class Duke {
      */
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
-        loadFile("duke.txt");
+        list = database.loadFile();
         String logo = " \t____        _        \n"
                 + "\t|  _ \\ _   _| | _____ \n"
                 + "\t| | | | | | | |/ / _ \\\n"
@@ -181,7 +98,6 @@ public class Duke {
                         printAddedMessage(new Event(tokenizer[0], tokenizer[1]));
                         break;
                     default:
-                        input = scanner.nextLine();
                         throw new DukeException("\t " + sadFace + "  OOPS!!! I'm sorry, but I don't know what that means :-(");
                 }
             } catch (DukeException e) {
@@ -190,7 +106,7 @@ public class Duke {
             } catch (IndexOutOfBoundsException e) {
                 System.out.println("\t " + sadFace + "  OOPS!!! The task is non-existent, please input a valid task number.");
             }
-            editFile("duke.txt");
+            database.editFile(list);
             input = scanner.next();
         }
         printLine();
