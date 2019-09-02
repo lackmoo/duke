@@ -18,6 +18,23 @@ public class Duke {
         printLine();
     }
 
+    public static void printMatchingTasks(String userTask) {
+        ArrayList<Task> overallList = new ArrayList<>();
+        for (Task task : list) {
+            if (task.description.contains(userTask)) {
+                overallList.add(task);
+            }
+        }
+        if (overallList.isEmpty()) {
+            System.out.println("\t OOPS!!! There are no matching tasks.");
+            printLine();
+        } else {
+            System.out.println("\t Here are the matching tasks in your list:");
+            for (int i = 0; i < overallList.size(); i++) {
+                System.out.println("\t " + (i + 1) + "." + overallList.get(i));
+            }
+        }
+    }
     /**
      * Main class.
      *
@@ -96,6 +113,13 @@ public class Duke {
                             throw new DukeException(deadlineEmpty1 + input + deadlineEmpty2);
                         }
                         printAddedMessage(new Event(tokenizer[0], tokenizer[1]));
+                        break;
+                    case "find":
+                        userTask = scanner.nextLine().trim();
+                        if (userTask.length() == 0) {
+                            throw new DukeException(taskEmpty1 + input + taskEmpty2);
+                        }
+                        printMatchingTasks(userTask);
                         break;
                     default:
                         throw new DukeException("\t " + sadFace + "  OOPS!!! I'm sorry, but I don't know what that means :-(");
