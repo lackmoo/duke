@@ -41,6 +41,7 @@ public class Duke {
             for (int i = 0; i < overallList.size(); i++) {
                 System.out.println("\t " + (i + 1) + "." + overallList.get(i));
             }
+            printLine();
         }
     }
 
@@ -61,7 +62,7 @@ public class Duke {
         System.out.println("\tHello from\n" + logo);
         printLine();
         System.out.println("\tHello! I'm Duke");
-        System.out.println("\tWhat can I do for you?");
+        System.out.println("\tWhat can I do for you? " + "\uD83D\uDE0A");
         printLine();
 
         String input = scanner.next();
@@ -79,7 +80,12 @@ public class Duke {
             try {
                 switch (input) {
                     case "done":
-                        int addIndex = scanner.nextInt();
+                        String doneIndex = scanner.nextLine().trim();
+                        if (doneIndex.length() == 0) {
+                            throw new DukeException("\t " + sadFace + "  OOPS!!! Please input a task number to be marked done.");
+                        }
+                        int addIndex = Integer.parseInt(doneIndex);
+                        //int addIndex = scanner.nextInt();
                         list.get(addIndex - 1).setStatus();
                         printLine();
                         break;
@@ -124,11 +130,16 @@ public class Duke {
                         printAddedMessage(new Event(tokenizer[0], tokenizer[1]));
                         break;
                     case "delete":
-                        int removedIndex = scanner.nextInt() - 1;
+                        String deleteIndex = scanner.nextLine().trim();
+                        if (deleteIndex.length() == 0) {
+                            throw new DukeException("\t " + sadFace + "  OOPS!!! Please input a task number to be deleted.");
+                        }
+                        int removedIndex = Integer.parseInt(deleteIndex) - 1;
                         printRemovedMessage(removedIndex);
                         if (removedIndex > list.size()) {
                             throw new DukeException("\t " + sadFace + "  OOPS!!! The task is non-existent, please input a valid task number.");
                         }
+                        break;
                     case "find":
                         userTask = scanner.nextLine().trim();
                         if (userTask.length() == 0) {
@@ -144,12 +155,16 @@ public class Duke {
                 printLine();
             } catch (IndexOutOfBoundsException e) {
                 System.out.println("\t " + sadFace + "  OOPS!!! The task is non-existent, please input a valid task number.");
+                printLine();
+            } catch (NumberFormatException e) {
+                System.out.println("\t " + sadFace + "  OOPS!!! Number Format Exception: Please provide an integer value for the task number.");
+                printLine();
             }
             database.editFile(list);
             input = scanner.next();
         }
         printLine();
-        System.out.println("\tBye. Hope to see you again soon!");
+        System.out.println("\tBye. Hope to see you again soon! " + "\uD83D\uDC4B");
         printLine();
     }
 }

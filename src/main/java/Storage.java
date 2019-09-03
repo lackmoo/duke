@@ -5,7 +5,6 @@ import java.io.BufferedWriter;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.io.FileNotFoundException;
 
 public class Storage {
     private String filename;
@@ -15,6 +14,7 @@ public class Storage {
     }
 
     public ArrayList<Task> loadFile() {
+        String sadFace = "\u2639";
         try {
             File fileLocation = new File(System.getProperty("user.dir") + "/data");
             File dataFile = new File(fileLocation, this.filename);
@@ -44,10 +44,10 @@ public class Storage {
             }
             return overallList;
         } catch (IOException e) {
-            System.out.println("  OOPS! IOException: " + e.getMessage());
+            System.out.println("\t " + sadFace + "  OOPS! IOException: " + e.getMessage());
             return new ArrayList<>();
         } catch (IndexOutOfBoundsException e) {
-            System.out.println("  OOPS! IndexOutOfBoundsException: " + e.getMessage());
+            System.out.println("\t " + sadFace + "  OOPS! IndexOutOfBoundsException: " + e.getMessage());
             return new ArrayList<>();
         } catch (DukeException e) {
             System.out.println(e.getMessage());

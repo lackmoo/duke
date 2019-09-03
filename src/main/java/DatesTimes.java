@@ -12,6 +12,7 @@ public class DatesTimes {
     public DatesTimes (String dateTime) throws DukeException {
         String[] initialSplit = dateTime.split(" ");
         List<String> splitDateTime = Arrays.asList(initialSplit);
+        String sadFace = "\u2639";
         try {
             String date = splitDateTime.get(0);
             String time = splitDateTime.get(1);
@@ -29,10 +30,10 @@ public class DatesTimes {
 
             if (this.day < 0 || this.day > 31 || this.month < 0 || this.month > 12
                     || this.year < 0 || this.hour < 0 || this.hour > 24 || this.min < 0 || this.min > 59) {
-                throw new DukeException("\t \u2639  OOPS!!! The datetime values provided are invalid. Please insert valid datetime values.");
+                throw new DukeException("\t " + sadFace + "  OOPS!!! The datetime values are invalid. Please insert valid datetime values.");
             }
         } catch (IndexOutOfBoundsException | NumberFormatException e) {
-            throw new DukeException("\t \u2639  OOPS!!! The datetime format is invalid. Deadline datetime format is: dd/mm/yy hh:mm and Event datetime format is: dd/mm/yy hh:mm - dd/mm/yy hh:mm.");
+            throw new DukeException("\t " + sadFace + "  OOPS!!! The datetime format is invalid. Valid Deadline datetime format is: dd/mm/yy hh:mm and Event datetime format is: dd/mm/yy hh:mm - dd/mm/yy hh:mm.");
         }
     }
 
