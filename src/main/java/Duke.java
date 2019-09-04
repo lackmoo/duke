@@ -53,18 +53,7 @@ public class Duke {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
         list = database.loadFile();
-        String logo = " \t____        _        \n"
-                + "\t|  _ \\ _   _| | _____ \n"
-                + "\t| | | | | | | |/ / _ \\\n"
-                + "\t| |_| | |_| |   <  __/\n"
-                + "\t|____/ \\__,_|_|\\_\\___|\n";
-
-        System.out.println("\tHello from\n" + logo);
-        printLine();
-        System.out.println("\tHello! I'm Duke");
-        System.out.println("\tWhat can I do for you? " + "\uD83D\uDE0A");
-        printLine();
-
+        Ui.initialize();
         String input = scanner.next();
         String[] tokenizer;
         String userTask;
@@ -105,6 +94,7 @@ public class Duke {
                         if (userTask.length() == 0) {
                             throw new DukeException(taskEmpty1 + input + taskEmpty2);
                         }
+                        //list.add(new Todo(userTask));
                         printAddedMessage(new Todo(userTask));
                         break;
                     case "deadline":
@@ -164,7 +154,6 @@ public class Duke {
             input = scanner.next();
         }
         printLine();
-        System.out.println("\tBye. Hope to see you again soon! " + "\uD83D\uDC4B");
-        printLine();
+        Ui.printBye();
     }
 }

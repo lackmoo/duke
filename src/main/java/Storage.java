@@ -20,7 +20,7 @@ public class Storage {
             File dataFile = new File(fileLocation, this.filename);
             if (!fileLocation.exists()) {
                 fileLocation.mkdir();
-                throw new DukeException("Database Directory not found. Creating Directory...");
+                //throw new DukeException("Database Directory not found. Creating Directory...");
             }
             BufferedReader scanData = new BufferedReader(new FileReader(dataFile));
             String userInput;
