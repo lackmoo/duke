@@ -1,4 +1,3 @@
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 public class Ui {
@@ -44,7 +43,7 @@ public class Ui {
 
     public static void printMatchingTasks(ArrayList<Task> overallList) {
         if (overallList.isEmpty()) {
-            System.out.println("\t OOPS!!! There are no matching tasks.");
+            System.out.println("\t " + sadFace + "  OOPS!!! There are no matching tasks.");
             printLine();
         } else {
             System.out.println("\t Here are the matching tasks in your list:");
@@ -69,8 +68,8 @@ public class Ui {
         //System.out.println("\t [" + this.getStatusIcon() + "] " + this.description);
     }
 
-    public static void printNonExistentTask() {
-        System.out.println("\t " + sadFace + "  OOPS!!! The task is non-existent, please input a valid task number.");
+    public static void printNonExistentTask(String userCommand) {
+        System.out.println(String.format("\t " + sadFace + "  OOPS!!! The description of %s cannot be empty.", userCommand));
     }
 
     public static void printIntegerError() {

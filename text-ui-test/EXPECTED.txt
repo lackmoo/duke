@@ -25,5 +25,56 @@
 	 Now you have 3 tasks in your list.
 	____________________________________________________
 	____________________________________________________
+	 ☹  OOPS!!! The description of deadline cannot be empty.
+	____________________________________________________
+	____________________________________________________
+	 ☹  OOPS!!! The description of event cannot be empty.
+	____________________________________________________
+	____________________________________________________
+	 ☹  OOPS!!! The description of todo cannot be empty.
+	____________________________________________________
+	____________________________________________________
+	 ☹  OOPS!!! The description of done cannot be empty.
+	____________________________________________________
+	____________________________________________________
+	 ☹  OOPS!!! The description of find cannot be empty.
+	____________________________________________________
+	____________________________________________________
+	 ☹  OOPS!!! The description of delete cannot be empty.
+	____________________________________________________
+	____________________________________________________
+	 ☹  OOPS!!! Please provide an integer value for the task number.
+	____________________________________________________
+	____________________________________________________
+	 ☹  OOPS!!! Please provide an integer value for the task number.
+	____________________________________________________
+	____________________________________________________
+	 ☹  OOPS!!! The task is non-existent, please input a valid task number.
+	____________________________________________________
+	____________________________________________________
+	 ☹  OOPS!!! The task is non-existent, please input a valid task number.
+	____________________________________________________
+	____________________________________________________
+	 ☹  OOPS!!! The deadline time details must be provided.
+	____________________________________________________
+	____________________________________________________
+	 ☹  OOPS!!! The event time details must be provided.
+	____________________________________________________
+	____________________________________________________
+	 ☹  OOPS!!! The datetime format is invalid. Valid Deadline datetime format is: dd/mm/yy hh:mm and Event datetime format is: dd/mm/yy hh:mm - dd/mm/yy hh:mm.
+	____________________________________________________
+	____________________________________________________
+	 ☹  OOPS!!! The datetime values are invalid. Please insert valid datetime values.
+	____________________________________________________
+	____________________________________________________
+	 ☹  OOPS!!! The datetime format is invalid. Valid Deadline datetime format is: dd/mm/yy hh:mm and Event datetime format is: dd/mm/yy hh:mm - dd/mm/yy hh:mm.
+	____________________________________________________
+	____________________________________________________
+	 ☹  OOPS!!! The datetime values are invalid. Please insert valid datetime values.
+	____________________________________________________
+	____________________________________________________
+	 ☹  OOPS!!! There are no matching tasks.
+	____________________________________________________
+	____________________________________________________
 	Bye. Hope to see you again soon! 👋
 	____________________________________________________

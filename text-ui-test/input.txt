@@ -1,4 +1,21 @@
 todo return book
 deadline submit assignment /by 05/09/2019 23:59
 event attend birthday party /at 04/10/2019 19:00 - 04/10/2019 22:00
+deadline 
+event
+todo
+done
+find
+delete
+done two
+delete two
+done 9
+delete 9
+deadline return
+event return
+deadline return /by 123
+deadline return /by 20/20/2019 00:00
+event return /at 123 
+event return /at 20/20/2019 00:00 - 20/20/2019 23:59
+find hithere
 bye 
