@@ -1,4 +1,9 @@
+import java.lang.reflect.Array;
+import java.util.ArrayList;
+
 public class Ui {
+    private static String sadFace = "\u2639";
+
     public static void printLine() {
         String line = "\t____________________________________________________";
         System.out.println(line);
@@ -23,10 +28,56 @@ public class Ui {
         printLine();
     }
 
-    /*public static void printAddedMessage(Task t) {
+    public static void printAddedMessage(Task t, int listSize) {
         System.out.println("\t Got it. I've added this task:");
         System.out.println("\t   " + t);
-        System.out.println(String.format("\t Now you have %d tasks in your list.", list.size()));
+        System.out.println(String.format("\t Now you have %d tasks in your list.", listSize));
         printLine();
-    }*/
+    }
+
+    public static void printRemovedMessage(Task removedTask, int listSize) {
+        System.out.println("\t Got it. I've removed this task:");
+        System.out.println("\t   " + removedTask);
+        System.out.println(String.format("\t Now you have %d tasks in your list.", listSize));
+        printLine();
+    }
+
+    public static void printMatchingTasks(ArrayList<Task> overallList) {
+        if (overallList.isEmpty()) {
+            System.out.println("\t OOPS!!! There are no matching tasks.");
+            printLine();
+        } else {
+            System.out.println("\t Here are the matching tasks in your list:");
+            for (int i = 0; i < overallList.size(); i++) {
+                System.out.println("\t " + (i + 1) + "." + overallList.get(i));
+            }
+            printLine();
+        }
+    }
+
+    public static void printList(ArrayList<Task> list) {
+        System.out.println("\t Here are the tasks in your list:");
+        for (int i = 1; i <= list.size(); i++) {
+            System.out.print("\t " + i + ".");
+            System.out.println(list.get(i - 1).toString());
+        }
+    }
+
+    public static void printStatus(ArrayList<Task> list, int doneIndex) {
+        System.out.println("\t Nice! I've marked this task as done:");
+        System.out.println("\t " + list.get(doneIndex - 1).toString());
+        //System.out.println("\t [" + this.getStatusIcon() + "] " + this.description);
+    }
+
+    public static void printNonExistentTask() {
+        System.out.println("\t " + sadFace + "  OOPS!!! The task is non-existent, please input a valid task number.");
+    }
+
+    public static void printIntegerError() {
+        System.out.println("\t " + sadFace + "  OOPS!!! Please provide an integer value for the task number.");
+    }
+
+    public static void printDukeException(Exception e) {
+        System.out.println(e.getMessage());
+    }
 }
