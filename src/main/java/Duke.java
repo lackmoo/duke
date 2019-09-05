@@ -1,10 +1,6 @@
 import java.util.ArrayList;
 
 public class Duke {
-    private static ArrayList<Task> list = new ArrayList<>();
-    private static Storage database = new Storage("duke.txt");
-
-
     /*private TaskList list;
     private Storage database;
 
@@ -24,9 +20,10 @@ public class Duke {
      * @param args empty
      */
     public static void main(String[] args) {
-        list = database.loadFile();
+        //list = database.loadFile();
         Ui.initialize();
         String[] userCommand;
+        TaskList list = new TaskList();
         Parser parser = new Parser();
         String[] tokenizer;
         // Error messages for empty task description
@@ -45,24 +42,20 @@ public class Duke {
                     switch (userCommand[0]) {
                         case "done":
                             int doneIndex = Integer.parseInt(userCommand[1]);
-                            if (doneIndex > list.size()) {
-                                throw new DukeException("\t " + sadFace + "  OOPS!!! The task is non-existent, please input a valid task number.");
-                            }
-                            list.get(doneIndex - 1).setStatus();
-                            Ui.printStatus(list, doneIndex);
+                            list.done(doneIndex);
+                            Ui.printStatus(list.userList, doneIndex);
                             Ui.printLine();
                             break;
                         case "list":
-                            if (list.size() == 0) {
+                            if (list.userList.size() == 0) {
                                 throw new DukeException("\t " + sadFace + "  OOPS!!! The task list is currently empty.");
                             }
-                            Ui.printList(list);
+                            Ui.printList(list.userList);
                             Ui.printLine();
                             break;
                         case "todo":
                             Todo todoTask = new Todo(userCommand[1]);
                             list.add(todoTask);
-                            Ui.printAddedMessage(todoTask, list.size());
                             break;
                         case "deadline":
                             tokenizer = userCommand[1].split(" /by ");
@@ -70,7 +63,6 @@ public class Duke {
                                 throw new DukeException(deadlineEmpty1 + "deadline" + deadlineEmpty2);
                             }
                             list.add(new Deadline(tokenizer[0], tokenizer[1]));
-                            Ui.printAddedMessage(new Deadline(tokenizer[0], tokenizer[1]), list.size());
                             break;
                         case "event":
                             tokenizer = userCommand[1].split(" /at ");
@@ -78,24 +70,16 @@ public class Duke {
                                 throw new DukeException(deadlineEmpty1 + "event" + deadlineEmpty2);
                             }
                             list.add(new Event(tokenizer[0], tokenizer[1]));
-                            Ui.printAddedMessage(new Event(tokenizer[0], tokenizer[1]), list.size());
                             break;
                         case "delete":
                             int removedIndex = Integer.parseInt(userCommand[1]) - 1;
-                            if (removedIndex > list.size()) {
-                                throw new DukeException("\t " + sadFace + "  OOPS!!! The task is non-existent, please input a valid task number.");
-                            }
-                            Task removedTask = list.remove(removedIndex);
-                            Ui.printRemovedMessage(removedTask, list.size());
+                            Ui.printRemovedMessage(list.userList, removedIndex);
+                            list.delete(removedIndex);
                             break;
                         case "find":
-                            ArrayList<Task> overallList = new ArrayList<>();
-                            for (Task task : list) {
-                                if (task.description.contains(userCommand[1])) {
-                                    overallList.add(task);
-                                }
-                            }
-                            Ui.printMatchingTasks(overallList);
+                            ArrayList<Task> foundList = new ArrayList<>();
+                            list.find(foundList, userCommand[1]);
+                            Ui.printMatchingTasks(foundList);
                             break;
                         default:
                             throw new DukeException("\t " + sadFace + "  OOPS!!! I'm sorry, but I don't know what that means :-(");
@@ -110,7 +94,6 @@ public class Duke {
                     Ui.printIntegerError();
                     Ui.printLine();
                 }
-                database.editFile(list);
             }
             else {
                 Ui.printLine();

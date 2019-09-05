@@ -1,3 +1,4 @@
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 public class Ui {
@@ -27,17 +28,20 @@ public class Ui {
         printLine();
     }
 
-    public static void printAddedMessage(Task t, int listSize) {
+    public static void printAddedMessage(Task addedTask, int userListSize) {
         System.out.println("\t Got it. I've added this task:");
-        System.out.println("\t   " + t);
-        System.out.println(String.format("\t Now you have %d tasks in your list.", listSize));
+        System.out.println("\t   " + addedTask.toString());
+        System.out.println(String.format("\t Now you have %d tasks in your list.", userListSize));
         printLine();
     }
 
-    public static void printRemovedMessage(Task removedTask, int listSize) {
+    public static void printRemovedMessage(ArrayList<Task> overallList, int removedIndex) throws DukeException {
+        if (removedIndex >= overallList.size()) {
+            throw new DukeException("\t " + sadFace + "  OOPS!!! The task is non-existent, please input a valid task number.");
+        }
         System.out.println("\t Got it. I've removed this task:");
-        System.out.println("\t   " + removedTask);
-        System.out.println(String.format("\t Now you have %d tasks in your list.", listSize));
+        System.out.println("\t   " + overallList.get(removedIndex).toString());
+        System.out.println(String.format("\t Now you have %d tasks in your list.", overallList.size() - 1));
         printLine();
     }
 
