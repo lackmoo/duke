@@ -6,29 +6,13 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 
-/**
- * Stores and loads the datebase file containing the user input from previous iterations of the program.
- */
 public class Storage {
-    /**
-     * The name of the file to be loaded.
-     */
     private String filename;
 
-    /**
-     * Class constructor.
-     *
-     * @param filename The name of the file to be loaded.
-     */
     public Storage(String filename) {
         this.filename = filename;
     }
 
-    /**
-     * To load the file containing the list of tasks in the database.
-     *
-     * @return The file stored in the database to allow the user to continue editing the list.
-     */
     public ArrayList<Task> loadFile() {
         String sadFace = "\u2639";
         try {
@@ -55,7 +39,7 @@ public class Storage {
                         break;
                 }
                 if (details[1].equals("1")) {
-                    overallList.get(overallList.size() - 1).setStatus();
+                    overallList.get(overallList.size() - 1).setDone();
                 }
             }
             return overallList;
@@ -71,11 +55,6 @@ public class Storage {
         }
     }
 
-    /**
-     * Appends to the overall list with new tasks.
-     *
-     * @param list The overall list in the database containing the user's previous tasks.
-     */
     public void editFile(ArrayList<Task> list) {
         try {
             File fileLocation = new File(System.getProperty("user.dir") + "/data");

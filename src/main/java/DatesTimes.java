@@ -1,29 +1,14 @@
 import java.util.List;
 import java.util.Arrays;
 
-/**
- * Class to make sense of the date and time details specified by the user.
- */
 public class DatesTimes {
-    /**
-     * The day, month and year details as specified by the user.
-     */
     private int day;
     private int month;
     private int year;
 
-    /**
-     * The hour and minute details as specified by the user.
-     */
     private int hour;
     private int min;
 
-    /**
-     * Class constructor. To split the overall datetime information into the respective date and time information.
-     *
-     * @param dateTime The String that consists of both the date and time details of the task.
-     * @throws DukeException if the datetime values are invalid or the datetime format is invalid.
-     */
     public DatesTimes (String dateTime) throws DukeException {
         String[] initialSplit = dateTime.split(" ");
         List<String> splitDateTime = Arrays.asList(initialSplit);
@@ -52,11 +37,6 @@ public class DatesTimes {
         }
     }
 
-    /**
-     * Formats the output of the date and time information to be printed on the command line when Duke is run.
-     *
-     * @return the date and time information of the deadline/event in the required format for the output on the command line.
-     */
     @Override
     public String toString() {
         return String.format("%02d/%02d/%04d %02d:%02d", this.day, this.month, this.year, this.hour, this.min);
