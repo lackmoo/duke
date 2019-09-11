@@ -1,5 +1,8 @@
 import java.util.ArrayList;
 
+/**
+ * The main class of the Duke program.
+ */
 public class Duke {
     /**
      * Main class.

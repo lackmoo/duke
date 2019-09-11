@@ -10,6 +10,21 @@
 	What can I do for you? 😊
 	____________________________________________________
 	____________________________________________________
+	 Got it. I've removed this task:
+	   [E][✘] attend birthday party (at: 04/10/2019 19:00 - 04/10/2019 22:00)
+	 Now you have 2 tasks in your list.
+	____________________________________________________
+	____________________________________________________
+	 Got it. I've removed this task:
+	   [D][✘] submit assignment (by: 05/09/2019 23:59)
+	 Now you have 1 tasks in your list.
+	____________________________________________________
+	____________________________________________________
+	 Got it. I've removed this task:
+	   [T][✘] return book
+	 Now you have 0 tasks in your list.
+	____________________________________________________
+	____________________________________________________
 	 Got it. I've added this task:
 	   [T][✘] return book
 	 Now you have 1 tasks in your list.
