@@ -1,3 +1,4 @@
+
 import java.util.Date;
 
 /**
@@ -41,4 +42,3 @@ public class Deadline extends Task {
         return "[D]" + super.toString() + " (by: " + this.by.toString() + ")";
     }
 }
-
