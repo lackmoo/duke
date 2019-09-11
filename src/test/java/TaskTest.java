@@ -17,7 +17,7 @@ class TaskTest {
     void fileFormat() {
         Task t = new Task("go shopping");
         assertEquals("0|go shopping", t.fileFormat());
-        t.setDone();
+        t.setStatus();
         assertEquals("1|go shopping", t.fileFormat());
     }
 }

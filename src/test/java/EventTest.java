@@ -8,7 +8,7 @@ class EventTest {
     void fileFormat() throws DukeException {
         Task t = new Event("project meeting", "04/10/2019 17:00 - 04/10/2019 19:00");
         assertEquals("E|0|project meeting|04/10/2019 17:00 - 04/10/2019 19:00", t.fileFormat());
-        t.setDone();
+        t.setStatus();
         assertEquals("E|1|project meeting|04/10/2019 17:00 - 04/10/2019 19:00", t.fileFormat());
     }
 

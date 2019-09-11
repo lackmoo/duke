@@ -8,7 +8,7 @@ class TodoTest {
     void fileFormat() {
         Task t = new Todo("attend lecture");
         assertEquals("T|0|attend lecture", t.fileFormat());
-        t.setDone();
+        t.setStatus();
         assertEquals("T|1|attend lecture", t.fileFormat());
 
     }
